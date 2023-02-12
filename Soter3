@@ -1,0 +1,621 @@
+Приложение предлагает пользователю выбрать профессию: врач, учитель, инженер и т.д. После выбора профессии, приложение генерирует новые задания для пользователя, в зависимости от выбранной профессии. Например, для врача заданием может быть диагностика болезни по описанию симптомов, для учителя - подготовка к занятию по определенной теме, для инженера - решение технической задачи.
+
+После выполнения задания, приложение отображает рейтинг пользователя в числовом выражении, который растет по мере выполнения заданий. Количество баллов за выполненное задание зависит от сложности задания. Чем сложнее задание, тем больше баллов можно заработать.
+
+Пользователь может отправлять вопросы боту в телеграм и получать подсказки.
+
+После команды /start , пользователь получает сообщение с описанием возможностей бота :" Привет,Сотерянин! Добро пожаловать в будущее где возможно все. Меня зовут Soter, я-бот...."
++
+кнопки профессиями
+professions = {"Кодер" 
+"Писатель"
+'Инженер': ['Механический', 'Электроника', 'Программист'],
+'Дизайнер': ['Графический', 'Интерьерный', 'Дизайн продуктов'],
+'Педагог': ['Дошкольный', 'Начальный', 'Средний'],
+'Медицинский работник': ['Врач', 'Медсестра', 'Фармацевт']
+} кнопки инлайновские под сообщением ... либо на панели ( решим какие лучше..
+
+варианты скрипта:
+package main
+
+import (
+"bufio"
+"fmt"
+"os"
+"strings"
+)
+
+var professions = map[string][]string{
+"Программист": []string{"Backend", "Frontend", "Full-stack"},
+"Юрист": []string{"Уголовный", "Гражданский", "Трудовой"},
+"Писатель": []string{"Книги", "Статьи", "Рецензии"},
+}
+
+func chooseProfession() string {
+fmt.Println("Выберите вашу профессию:")
+for key := range professions {
+fmt.Println(key)
+}
+reader := bufio.NewReader(os.Stdin)
+chosenProfession, _ := reader.ReadString('\n')
+chosenProfession = strings.TrimSuffix(chosenProfession, "\n")
+
+if _, ok := professions[chosenProfession]; ok {
+	fmt.Println("Вы выбрали профессию:", chosenProfession)
+	return chosenProfession
+} else {
+	fmt.Println("Профессия не найдена, пожалуйста, выберите из списка")
+	return chooseProfession()
+}
+}
+
+func chooseSpecialization(profession string) string {
+fmt.Println("Выберите вашу специализацию в профессии:")
+for _, specialization := range professions[profession] {
+fmt.Println(specialization)
+}
+reader := bufio.NewReader(os.Stdin)
+chosenSpecialization, _ := reader.ReadString('\n')
+chosenSpecialization = strings.TrimSuffix(chosenSpecialization, "\n")
+
+for _, specialization := range professions[profession] {
+	if specialization == chosenSpecialization {
+		fmt.Println("Вы выбрали специализацию:", chosenSpecialization)
+		return chosenSpecialization
+	}
+}
+
+fmt.Println("Специализация не найдена, пожалуйста, выберите из списка")
+
+
+
+
+
+
+
+
+
+
+
+package main
+
+import (
+"fmt"
+"github.com/andlabs/ui"
+)
+
+func openConverter() {
+fmt.Println("Converter Button clicked")
+}
+
+func openMyLawyer() {
+fmt.Println("My Lawyer Button clicked")
+}
+
+func openWriter() {
+fmt.Println("Writer Button clicked")
+}
+
+func openDesigner() {
+fmt.Println("Designer Button clicked")
+}
+
+func openPsychologist() {
+fmt.Println("Psychologist Button clicked")
+}
+
+func main() {
+err := ui.Main(func() {
+window := ui.NewWindow("My Buttons", 200, 200, false)
+window.OnClosing(func(*ui.Window) bool {
+ui.Quit()
+return true
+})
+converterButton := ui.NewButton("Converter")
+converterButton.OnClicked(func(*ui.Button) {
+    openConverter()
+})
+myLawyerButton := ui.NewButton("My Lawyer")
+myLawyerButton.OnClicked(func(*ui.Button) {
+    openMyLawyer()
+})
+writerButton := ui.NewButton("Writer")
+writerButton.OnClicked(func(*ui.Button) {
+    openWriter()
+})
+designerButton := ui.NewButton("Designer")
+designerButton.OnClicked(func(*ui.Button) {
+    openDesigner()
+})
+psychologistButton := ui.NewButton("Psychologist")
+psychologistButton.OnClicked(func(*ui.Button) {
+    openPsychologist()
+})
+
+vbox := ui.NewVerticalBox()
+vbox.Append(converterButton, false)
+vbox.Append(myLawyerButton, false)
+vbox.Append(writerButton, false)
+vbox.Append(designerButton, false)
+vbox.Append(psychologistButton, false)
+window.SetChild(vbox)
+window.Show()
+})
+if err != nil {
+panic(err)
+}
+}
+
+
+package main
+
+import (
+"bufio"
+"fmt"
+"os"
+"strings"
+)
+
+var professions = map[string][]string{
+"Программист": []string{"Backend", "Frontend", "Full-stack"},
+"Юрист": []string{"Корпоративный", "Гражданский", "Трудовой"},
+"Писатель": []string{"Книги", "Статьи", "Рецензии"},
+}
+
+func chooseProfession() string {
+fmt.Println("Выберите вашу профессию:")
+for key := range professions {
+fmt.Println(key)
+}
+reader := bufio.NewReader(os.Stdin)
+chosenProfession, _ := reader.ReadString('\n')
+chosenProfession = strings.TrimSuffix(chosenProfession, "\n")
+
+if _, ok := professions[chosenProfession]; ok {
+	fmt.Println("Вы выбрали профессию:", chosenProfession)
+	return chosenProfession
+} else {
+	fmt.Println("Профессия не найдена, пожалуйста, выберите из списка")
+	return chooseProfession()
+}
+}
+
+func chooseSpecialization(profession string) string {
+fmt.Println("Выберите вашу специализацию в профессии:")
+for _, specialization := range professions[profession] {
+fmt.Println(specialization)
+}
+reader := bufio.NewReader(os.Stdin)
+chosenSpecialization, _ := reader.ReadString('\n')
+chosenSpecialization = strings.TrimSuffix(chosenSpecialization, "\n")
+
+for _, specialization := range professions[profession] {
+	if specialization == chosenSpecialization {
+		fmt.Println("Вы выбрали специализацию:", chosenSpecialization)
+		return chosenSpecialization
+	}
+}
+
+fmt.Println("Специализация не найдена, пожалуйста, выберите из списка:")
+
+// Объявляем словарь для профессий и специализаций
+var professions = map[string][]string{
+"Программист": []string{"Web-разработчик", "Мобильный разработчик", "Игровой разработчик"},
+"Юрист": []string{"Корпоративный юрист", "Трудовой юрист", "Криминалист"},
+"Писатель": []string{"Детективы", "Романы", "Статьи"},
+}
+
+// Объявляем функцию для выбора специализации в профессии
+func chooseSpecialization(profession string) string {
+fmt.Println("Выберите вашу специализацию в профессии:")
+for _, specialization := range professions[profession] {
+fmt.Println(specialization)
+}
+var chosenSpecialization string
+fmt.Scanln(&chosenSpecialization)
+for _, specialization := range professions[profession] {
+	if specialization == chosenSpecialization {
+		fmt.Println("Вы выбрали специализацию:", chosenSpecialization)
+		return chosenSpecialization
+	}
+}
+
+fmt.Println("Специализация не найдена, пожалуйста, выберите из списка:")
+return chooseSpecialization(profession)
+}
+var professions = map[string][]string{
+"Юрист": {"Корпоративный", "Семейный", "Трудовой"},
+"Писатель": {"Фантастика", "Детективы", "Рецензии"},
+"Программист": {"Web", "Mobile", "Desktop"},
+}
+
+func chooseSpecialization(profession string) string {
+fmt.Println("Выберите вашу специализацию в профессии:")
+for _, specialization := range professions[profession] {
+fmt.Println(specialization)
+}
+var chosenSpecialization string
+fmt.Scanln(&chosenSpecialization)
+for _, specialization := range professions[profession] {
+	if specialization == chosenSpecialization {
+		fmt.Println("Вы выбрали специализацию:", chosenSpecialization)
+		return chosenSpecialization
+	}
+}
+
+fmt.Println("Специализация не найдена, пожалуйста, выберите из списка:")
+return chooseSpecialization(profession)
+}
+
+func main() {
+fmt.Println("Список доступных профессий:")
+for profession := range professions {
+fmt.Println(profession)
+}
+var chosenProfession string
+fmt.Println("Выберите вашу профессию:")
+fmt.Scanln(&chosenProfession)
+
+_, exists := professions[chosenProfession]
+if !exists {
+	fmt.Println("Профессия не найдена, пожалуйста, выберите из списка:")
+	main()
+	return
+}
+
+chosenSpecialization := chooseSpecialization(chosenProfession)
+fmt.Println("Вы выбрали профессию", chosenProfession, "со специализацией", chosenSpecialization)
+}
+package main
+
+import (
+"bufio"
+"fmt"
+"os"
+)
+
+var professions = map[string]map[string]string{
+"программист": map[string]string{
+"python": "Python",
+"c++": "C++",
+"c#": "C#",
+},
+"писатель": map[string]string{
+"статьи": "статьи",
+"рецензии": "рецензии",
+"продающие": "продающие тексты",
+},
+"юрист": map[string]string{
+"законодательство": "законодательство",
+"право": "правовые принципы и процессы",
+},
+}
+
+func chooseSpecialization(profession string) string {
+specializations := professions[profession]
+fmt.Println("Выберите специализацию:")
+for spec := range specializations {
+fmt.Println(spec)
+}
+var chosenSpecialization string
+fmt.Scanln(&chosenSpecialization)
+specialization, exists := specializations[chosenSpecialization]
+if !exists {
+	fmt.Println("Специализация не найдена, пожалуйста, выберите из списка:")
+	return chooseSpecialization(profession)
+}
+
+return specialization
+}
+
+func main() {
+fmt.Println("Выберите вашу профессию:")
+for profession := range professions {
+fmt.Println(profession)
+}
+reader := bufio.NewReader(os.Stdin)
+chosenProfession, _ := reader.ReadString('\n')
+chosenProfession = chosenProfession[:len(chosenProfession)-1]
+
+_, exists := professions[chosenProfession]
+if !exists {
+	fmt.Println("Профессия не найдена, пожалуйста, выберите из списка:")
+	main()
+	return
+}
+
+chosenSpecialization :=
+getSpecialization()
+_, exists = specializations[chosenSpecialization]
+if !exists {
+fmt.Println("Специализация не найдена, пожалуйста, выберите из списка:")
+main()
+return
+}
+
+fmt.Println("Вы выбрали профессию:", chosenProfession, "со специализацией:", chosenSpecialization)
+fmt.Println("Начинаем подбор вакансий...")
+
+vacancies := getVacancies(chosenProfession, chosenSpecialization)
+if len(vacancies) == 0 {
+fmt.Println("К сожалению, подходящих вакансий не найдено.")
+return
+}
+
+fmt.Println("Найдено", len(vacancies), "вакансий:")
+for i, vacancy := range vacancies {
+fmt.Println(i+1, ".", vacancy)
+}
+
+fmt.Println("Выберите номер вакансии, которую хотите просмотреть:")
+selectedVacancyNumber := getSelectedVacancyNumber(len(vacancies))
+fmt.Println("Вы выбрали вакансию:", vacancies[selectedVacancyNumber-1])
+
+package main
+
+import (
+"fmt"
+)
+
+var professions = map[string]map[string]string{
+"программист": map[string]string{
+"Python": "Язык высокого уровня, используется в веб-разработке, машинном обучении, системном администрировании и др.",
+"C++": "Язык программирования, используется в разработке программного обеспечения, играх, мобильных приложениях и др.",
+"C#": "Язык программирования, используется в разработке игр, мобильных приложений, веб-приложений и др.",
+"JavaScript": "Язык программирования, используется в веб-разработке, мобильных приложениях и др.",
+},
+"писатель": map[string]string{
+"статьи": "Статьи на любые темы, с целью информирования или обучения читателей.",
+"рецензии": "Оценочные статьи о книгах, фильмах, музыкальных альбомах и др.",
+"продающие тексты": "Тексты, созданные......",
+
+var professions = map[string]map[string]string{
+"писатель": {
+"статьи": "научные статьи",
+"рецензии": "рецензии на книги или фильмы",
+"продающие тексты": "тексты для рекламы и продаж",
+},
+"юрист": {
+"законодательство": "изучение законов",
+"правовые принципы": "изучение правовых принципов",
+"процессы": "участие в судебных процессах",
+},
+
+package main
+
+import (
+"github.com/go-telegram-bot-api/telegram-bot-api"
+"fmt"
+)
+
+func getTasks(chatID int64) []string {
+// Здесь необходимо реализовать запрос к БД для получения списка задач для пользователя с chatID
+// Возвращаем тестовые данные
+return []string{"Задача 1", "Задача 2"}
+}
+
+func main() {
+bot, err := tgbotapi.NewBotAPI("BOT_TOKEN")
+if err != nil {
+fmt.Println(err)
+return
+}
+bot.Debug = true
+
+updateConfig := tgbotapi.NewUpdate(0)
+updateConfig.Timeout = 60
+
+updates, err := bot.GetUpdatesChan(updateConfig)
+
+for update := range updates {
+	if update.Message == nil {
+		continue
+	}
+
+	if update.Message.Text == "задачи" {
+		taskList := getTasks(update.Message.Chat.ID)
+		if len(taskList) == 0 {
+			bot.Send(tgbotapi.NewMessage(update.Message.Chat.ID, "У вас пока нет задач."))
+		} else {
+			bot.Send(tgbotapi.NewMessage(update.Message.Chat.ID, "Ваши текущие задачи:"))
+			for _, task := range taskList {
+				bot.Send(tgbotapi.NewMessage(update.Message.Chat.ID, task))
+			}
+		}
+		bot.Send(tgbotapi.NewMessage(update.Message.Chat.ID, "Чтобы добавить задачу, напишите 'Добавить задачу'."))
+	}
+}
+
+package main
+
+import (
+"database/sql"
+"fmt"
+_ "github.com/go-sql-driver/mysql"
+)
+
+func main() {
+conn, err := sql.Open("mysql", "user:password@tcp(localhost)/")
+if err != nil {
+fmt.Println("Failed to connect to database:", err)
+return
+}
+defer conn.Close()
+_, err = conn.Exec("CREATE DATABASE employment")
+if err != nil {
+	fmt.Println("Failed to create database:", err)
+	return
+}
+
+conn, err = sql.Open("mysql", "user:password@tcp(localhost)/employment")
+if err != nil {
+	fmt.Println("Failed to connect to database:", err)
+	return
+}
+defer conn.Close()
+
+package main
+
+import (
+"database/sql"
+"fmt"
+_ "github.com/go-sql-driver/mysql"
+)
+
+func main() {
+conn, err := sql.Open("mysql", "user:password@tcp(localhost:3306)/dbname")
+if err != nil {
+fmt.Println(err.Error())
+return
+}
+defer conn.Close()
+cursor, err := conn.Prepare("CREATE TABLE Coverter (id INT PRIMARY KEY AUTO_INCREMENT, name VARCHAR(100) NOT NULL, age INT NOT NULL, expertise VARCHAR(100) NOT NULL)")
+if err != nil {
+	fmt.Println(err.Error())
+	return
+}
+defer cursor.Close()
+_, err = cursor.Exec()
+if err != nil {
+	fmt.Println(err.Error())
+	return
+}
+
+cursor, err = conn.Prepare("CREATE TABLE Programmer (id INT PRIMARY KEY AUTO_INCREMENT, name VARCHAR(100) NOT NULL, age INT NOT NULL, expertise VARCHAR(100) NOT NULL)")
+if err != nil {
+	fmt.Println(err.Error())
+	return
+}
+defer cursor.Close()
+_, err = cursor.Exec()
+if err != nil {
+	fmt.Println(err.Error())
+	return
+}
+
+cursor, err = conn.Prepare("CREATE TABLE My_Lawyer (id INT PRIMARY KEY AUTO_INCREMENT, name VARCHAR(100) NOT NULL, age INT NOT NULL, expertise VARCHAR(100) NOT NULL)")
+if err != nil {
+	fmt.Println(err.Error())
+	return
+}
+defer cursor.Close()
+_, err = cursor.Exec()
+if err != nil {
+	fmt.Println(err.Error())
+	return
+}
+
+cursor, err = conn.Prepare("CREATE TABLE Writer (id INT PRIMARY KEY AUTO_INCREMENT, name VARCHAR(100) NOT NULL, age INT NOT NULL, expertise VARCHAR(100) NOT NULL)")
+if err != nil {
+	fmt.Println(err.Error())
+	return
+}
+defer cursor.Close()
+_, err = cursor.Exec()
+if err != nil {
+	fmt.Println(err.Error())
+	return
+}
+
+cursor, err = conn.Prepare("CREATE TABLE Designer (id INT PRIMARY KEY AUTO_INCREMENT, name VARCHAR(100) NOT NULL, age INT NOT NULL, expertise VARCHAR(100) NOT NULL)")
+if err != nil {
+	fmt.Println(err.Error())
+	return
+}
+defer cursor.Close()
+_, err = cursor.Exec()
+if err != nil {
+	fmt.Println(err.Error())
+	return
+}
+
+# cursor, err!!!!!!!!!!!
+createTable, err := db.Prepare("CREATE TABLE Psychologist (id INT PRIMARY KEY AUTO_INCREMENT, name VARCHAR(100) NOT NULL, age INT NOT NULL, expertise VARCHAR(100) NOT NULL)")
+if err != nil {
+	fmt.Println(err.Error())
+	return
+}
+defer createTable.Close()
+
+_, err = createTable.Exec()
+if err != nil {
+	fmt.Println(err.Error())
+	return
+}
+fmt.Println("Table created successfully.")
+
+
+
+package main
+
+import (
+"github.com/Syfaro/telegram-bot-api"
+)
+
+func main() {
+client, err := tgbotapi.NewBotAPI("token")
+if err != nil {
+panic(err)
+}
+client.Debug = true
+
+markup_inline := tgbotapi.NewInlineKeyboardMarkup(
+	tgbotapi.NewInlineKeyboardRow(
+		tgbotapi.NewInlineKeyboardButtonData("yes", "yes"),
+		tgbotapi.NewInlineKeyboardButtonData("no", "no"),
+	),
+)
+
+msg := tgbotapi.NewMessage(chatID, "Do you want to be a professional in your business?")
+msg.ReplyMarkup = markup_inline
+_, err = client.SendMessage(msg)
+if err != nil {
+	panic(err)
+}
+
+u := tgbotapi.NewUpdate(0)
+u.Timeout = 60
+updates, err := client.GetUpdatesChan(u)
+
+for update := range updates {
+	if update.CallbackQuery != nil {
+		answer(update.CallbackQuery, client)
+	}
+	if update.Message != nil {
+		get_text(update.Message, client)
+	}
+}
+}
+
+func answer(call *tgbotapi.CallbackQuery, client *tgbotapi.BotAPI) {
+if call.Data == "yes" {
+markup_reply := tgbotapi.NewReplyKeyboard(
+tgbotapi.NewKeyboardButtonRow(
+tgbotapi.NewKeyboardButton("My ID"),
+tgbotapi.NewKeyboardButton("My Nickname"),
+tgbotapi.NewKeyboardButton("Earn"),
+tgbotapi.NewKeyboardButton("Find a professional"),
+tgbotapi.NewKeyboardButton("Play"),
+),
+)
+msg := tgbotapi.NewMessage(call.Message.Chat.ID, "Press one of the buttons")
+msg.ReplyMarkup = markup_reply
+_, err := client.SendMessage(msg)
+if err != nil {
+panic(err)
+}
+} else if call.Data == "no" {
+return
+}
+}
+
+func get_text(message *tgbotapi.Message, client *tgbotapi.BotAPI) {
+if message.Text == "My ID" {
+msg := tgbotapi.NewMessage(message.Chat.ID, "Your ID: "+strconv.Itoa(message.From.ID))
+_, err := client.SendMessage(msg)
+if err != nil {
+panic(err)
+}
+} else if message.Text == "My Nickname" {
+msg := tgbotapi.NewMessage(message.Chat.ID, "Your nickname: "+message.From.FirstName+" "+message.From.LastName)
+_, err := client.SendMessage(msg)
